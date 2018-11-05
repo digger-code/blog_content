@@ -1,7 +1,15 @@
 #!/bin/bash
 #
 #blog helper
-#
+#os
+os=`uname -s`
+if [ ".$os"=".Linux" ];
+then
+  #centos
+  which yum && ! which nodejs && \
+  sudo yum install -y epel-release && \
+  sudo yum install -y nodejs
+fi
 
 #Install soft 
 ! npm list -g --depth=0 | grep hexo &&\
@@ -15,8 +23,3 @@ source_dir=`pwd`
 cp "$source_dir/etc/_config.yml"  "$blog_dir/_config.yml" && \
 rm -rf $blog_dir/source && ln -s $source_dir/source $blog_dir/source && \
 cd "../blog" && npm install hexo-deployer-git --save 
-
-
-
-
-
